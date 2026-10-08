@@ -1,0 +1,20 @@
+name: weather
+version: "1.0.0"
+profile: weather
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+
+models:
+  weather:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table
+
+seeds:
+  weather:
+    locations:
+      +column_types:
+        latitude: double
+        longitude: double

@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    description: "Landed by extract.py — append-only snapshot log; all transformation happens in dbt."
+    tables:
+      - name: weather_responses
+        loaded_at_field: fetched_at
+        freshness:
+          warn_after: { count: 26, period: hour }
+          error_after: { count: 48, period: hour }
+
+models:
+  - name: stg_weather__daily
+    description: "One row per (location, snapshot, forecast day), parsed from raw JSON. Not deduped."
+    columns:
+      - name: location_name
+        tests: [not_null]
+      - name: forecast_date
+        tests: [not_null]
+      - name: fetched_at
+        tests: [not_null]
+      - name: temperature_max_c
+        tests: [not_null]
