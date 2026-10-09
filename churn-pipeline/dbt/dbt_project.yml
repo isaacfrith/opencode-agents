@@ -1,0 +1,12 @@
+name: churn
+version: "1.0.0"
+profile: churn
+
+model-paths: ["models"]
+
+models:
+  churn:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

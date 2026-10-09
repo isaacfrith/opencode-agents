@@ -1,0 +1,12 @@
+# Keep the build context small and, critically, stop the host's macOS .venv
+# (and local data/artifacts) from clobbering what uv installs inside the image.
+.venv/
+data/
+mlruns/
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
+__pycache__/
+*.pyc
+.git/
+.gitignore

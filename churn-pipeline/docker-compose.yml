@@ -1,0 +1,34 @@
+# MLflow (tracking + registry) and the scoring API.
+#
+# The batch pipeline (extract / dbt / train / score) runs on the host via uv and
+# talks to the MLflow service on localhost:5000. DuckDB is a host file and is
+# never mounted into a container.
+
+services:
+  mlflow:
+    build: .
+    image: churn-pipeline:local
+    command: >
+      mlflow server
+      --host 0.0.0.0 --port 5001
+      --backend-store-uri sqlite:////mlflow/db/mlflow.db
+      --artifacts-destination /mlflow/artifacts
+      --serve-artifacts
+    ports:
+      - "5001:5001"
+    volumes:
+      - mlflow-db:/mlflow/db
+      - mlflow-artifacts:/mlflow/artifacts
+
+  api:
+    image: churn-pipeline:local
+    environment:
+      MLFLOW_TRACKING_URI: http://mlflow:5001
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mlflow
+
+volumes:
+  mlflow-db:
+  mlflow-artifacts:

@@ -1,0 +1,11 @@
+.venv/
+data/
+mlruns/
+dbt/target/
+dbt/logs/
+dbt/dbt_packages/
+dbt/.user.yml
+__pycache__/
+*.pyc
+*.egg-info/
+.env

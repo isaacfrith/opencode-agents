@@ -1,0 +1,26 @@
+[project]
+name = "churn-pipeline"
+version = "0.1.0"
+description = "Land bank customer records in DuckDB, transform with dbt, and score churn with XGBoost."
+requires-python = ">=3.11"
+dependencies = [
+    "duckdb>=1.1",
+    "dbt-core>=1.9",
+    "dbt-duckdb>=1.9",
+    "pandas>=2.2",
+    "scikit-learn>=1.5",
+    "xgboost>=2.1",
+    "mlflow>=2.17,<3",
+    "sqlalchemy>=2.0,<2.1",
+    "kagglehub>=0.3",
+    "httpx>=0.27",
+    "typer>=0.12",
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.32",
+    "jinja2>=3.1",
+]
+
+[tool.uv]
+# Scripts-and-package project: we run from the project root (``python -m``), so
+# there is no distribution to build.
+package = false

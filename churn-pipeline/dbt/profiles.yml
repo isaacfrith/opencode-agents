@@ -1,0 +1,7 @@
+churn:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ../data/churn.duckdb
+      threads: 4
